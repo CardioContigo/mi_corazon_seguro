@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Corazón Seguro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #d62828;
+    }
+    section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .status {
+      padding: 10px;
+      margin-top: 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      color: white;
+    }
+    .verde { background-color: #2a9d8f; }
+    .amarillo { background-color: #f4a261; }
+    .rojo { background-color: #e63946; }
+  </style>
+</head>
+<body>
+
+  <h1>🫀 Mi Corazón Seguro</h1>
+
+  <section>
+    <h2>📚 Información Sanitaria</h2>
+    <ul>
+      <li><strong>Alimentación:</strong> Dieta mediterránea, reducir sal, frutas y verduras.</li>
+      <li><strong>Actividad física:</strong> Caminar 30 min diarios, evitar esfuerzos bruscos.</li>
+      <li><strong>Hábitos saludables:</strong> No fumar, dormir bien, controlar el estrés.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>❓ Preguntas Frecuentes</h2>
+    <ul>
+      <li>¿Puedo hacer ejercicio?</li>
+      <li>¿Qué síntomas deben preocuparme?</li>
+      <li>¿Cuándo debo tomar mi medicación?</li>
+      <li>¿Cuándo acudir a urgencias?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📈 Control de Signos Vitales</h2>
+    <label>Frecuencia cardíaca (ppm): <input type="number" id="fc" /></label><br><br>
+    <label>Tensión sistólica (mmHg): <input type="number" id="ts" /></label><br><br>
+    <label>Saturación O2 (%): <input type="number" id="so2" /></label><br><br>
+    <button onclick="evaluarSignos()">Evaluar</button>
+
+    <div id="resultado" class="status"></div>
+  </section>
+
+  <section>
+    <h2>💬 Chat con Enfermería</h2>
+    <p>¿Tienes dudas? Habla con tu equipo:</p>
+    <a href="https://teams.microsoft.com" target="_blank">
+      <button>Ir al chat de Teams</button>
+    </a>
+  </section>
+
+  <script>
+    function evaluarSignos() {
+      const fc = parseInt(document.getElementById('fc').value);
+      const ts = parseInt(document.getElementById('ts').value);
+      const so2 = parseInt(document.getElementById('so2').value);
+
+      const resultado = document.getElementById('resultado');
+
+      if (!fc || !ts || !so2) {
+        resultado.className = 'status rojo';
+        resultado.innerText = "⚠️ Introduce todos los valores";
+        return;
+      }
+
+      if (fc >= 60 && fc <= 100 && ts >= 100 && ts <= 140 && so2 >= 95) {
+        resultado.className = 'status verde';
+        resultado.innerText = "🟢 Todo correcto";
+      } else if ((fc > 100 || ts > 140 || so2 < 95) && (fc < 120 && ts < 160 && so2 > 90)) {
+        resultado.className = 'status amarillo';
+        resultado.innerText = "🟡 Revisa tus valores y consulta con enfermería";
+      } else {
+        resultado.className = 'status rojo';
+        resultado.innerText = "🔴 Llama al 061 ¡Urgente!";
+      }
+    }
+  </script>
+
+</body>
+</html>
