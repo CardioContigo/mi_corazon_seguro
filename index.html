@@ -39,6 +39,7 @@
     .verde { background-color: #2a9d8f; }
     .amarillo { background-color: #f4a261; }
     .rojo { background-color: #e63946; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -46,23 +47,51 @@
   <h1>🫀 Mi Corazón Seguro</h1>
 
   <section>
-    <h2>📚 Información Sanitaria</h2>
-    <ul>
-      <li><strong>Alimentación:</strong> Dieta mediterránea, reducir sal, frutas y verduras.</li>
-      <li><strong>Actividad física:</strong> Caminar 30 min diarios, evitar esfuerzos bruscos.</li>
-      <li><strong>Hábitos saludables:</strong> No fumar, dormir bien, controlar el estrés.</li>
-    </ul>
+    <h2>🔐 Inicio de Sesión</h2>
+    <label>Teléfono (+34):</label>
+    <input type="tel" id="telefono" placeholder="+34..." required><br><br>
+    <label>Contraseña:</label>
+    <input type="password" id="password" required><br><br>
+    <button onclick="login()">Entrar</button>
   </section>
 
-  <section>
-    <h2>❓ Preguntas Frecuentes</h2>
-    <ul>
-      <li>¿Puedo hacer ejercicio?</li>
-      <li>¿Qué síntomas deben preocuparme?</li>
-      <li>¿Cuándo debo tomar mi medicación?</li>
-      <li>¿Cuándo acudir a urgencias?</li>
-    </ul>
-  </section>
+  <div id="paciente1" class="hidden">
+    <section>
+      <h2>📚 Información Sanitaria (Paciente 1)</h2>
+      <ul>
+        <li><strong>Alimentación:</strong> Dieta baja en sodio, controlar grasas saturadas.</li>
+        <li><strong>Actividad física:</strong> Ejercicio suave diario (yoga, caminatas).</li>
+        <li><strong>Hábitos:</strong> Reducir estrés con meditación.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>❓ Preguntas Frecuentes (Paciente 1)</h2>
+      <ul>
+        <li>¿Puedo subir escaleras?</li>
+        <li>¿Debo controlar el peso a diario?</li>
+        <li>¿Cómo tomar la medicación con el desayuno?</li>
+      </ul>
+    </section>
+  </div>
+
+  <div id="paciente2" class="hidden">
+    <section>
+      <h2>📚 Información Sanitaria (Paciente 2)</h2>
+      <ul>
+        <li><strong>Alimentación:</strong> Controlar azúcares, aumentar omega 3.</li>
+        <li><strong>Actividad física:</strong> Bicicleta estática 15 min diarios.</li>
+        <li><strong>Hábitos:</strong> Evitar consumo de alcohol y cafeína.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>❓ Preguntas Frecuentes (Paciente 2)</h2>
+      <ul>
+        <li>¿Qué hago si siento palpitaciones?</li>
+        <li>¿Cuántas veces al día debo tomar la medicación?</li>
+        <li>¿Puedo viajar después del alta?</li>
+      </ul>
+    </section>
+  </div>
 
   <section>
     <h2>📈 Control de Signos Vitales</h2>
@@ -70,19 +99,33 @@
     <label>Tensión sistólica (mmHg): <input type="number" id="ts" /></label><br><br>
     <label>Saturación O2 (%): <input type="number" id="so2" /></label><br><br>
     <button onclick="evaluarSignos()">Evaluar</button>
-
     <div id="resultado" class="status"></div>
   </section>
 
   <section>
     <h2>💬 Chat con Enfermería</h2>
     <p>¿Tienes dudas? Habla con tu equipo:</p>
-    <a href="https://teams.microsoft.com" target="_blank">
+    <a href="https://teams.live.com/v2" target="_blank">
       <button>Ir al chat de Teams</button>
     </a>
   </section>
 
   <script>
+    function login() {
+      const telefono = document.getElementById("telefono").value;
+      const password = document.getElementById("password").value;
+
+      if (telefono === "+34111111111" && password === "paciente1") {
+        document.getElementById("paciente1").classList.remove("hidden");
+        document.getElementById("paciente2").classList.add("hidden");
+      } else if (telefono === "+34222222222" && password === "paciente2") {
+        document.getElementById("paciente2").classList.remove("hidden");
+        document.getElementById("paciente1").classList.add("hidden");
+      } else {
+        alert("Número o contraseña incorrectos.");
+      }
+    }
+
     function evaluarSignos() {
       const fc = parseInt(document.getElementById('fc').value);
       const ts = parseInt(document.getElementById('ts').value);
